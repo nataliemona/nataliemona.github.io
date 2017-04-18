@@ -73,7 +73,7 @@
         ]},
         {"born": 1933, "firstname":"John Michael", "children":[
             {"born": 1968, "firstname": "Jacquelyn"},
-            {"born": 1970, "firstname": "Michael", "children": 
+            {"born": 1970, "firstname": "Michael", "children": [
                 {"born": 1989, "firstname": "Jordan"},
                 {"born": 1994, "firstname": "Eric"}
             ]}
