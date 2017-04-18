@@ -97,6 +97,8 @@ d3.json("family.json", function(error, root) {
       .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
       .text(function(d) { return d.firstname; });
 });
+
+update(d);
 d3.select(self.frameElement).style("height", diameter - 150 + "px");
 
 // FROM http://bl.ocks.org/d3noob/8375092
@@ -197,7 +199,6 @@ function click(d) {
 	d.children = d._children;
 	d._children = null;
   }
-  update(d);
 }
 </script>
 </body>
