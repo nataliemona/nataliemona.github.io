@@ -2,7 +2,11 @@
     {"born": 1898, "firstname": "Martha"},
     {"born": 1899, "firstname": "Mary", "children": [
         {"born": 1919, "firstname": "Salwa Noor", "children":[
-            {"born": 1946, "firstname":"Paul Kalil", "children":[]},
+            {"born": 1946, "firstname":"Paul Kalil", "children":[
+                {"born": 1972, "firstname": "Jennifer"},
+                {"born": 1973, "firstname": "Christine"},
+                {"born": 1977, "firstname": "Laura"}
+            ]},
             {"born": 1947, "firstname":"Paula Mary", "children":[]},
             {"born": 1951, "firstname":"Marilyn Ann", "children":[]}
         ]},
