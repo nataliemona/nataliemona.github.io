@@ -85,16 +85,44 @@
   ]},
   {"born": 1904, "firstname": "Lenda", "children": [
       {"born": 1927, "firstname": "Thomas Michael", "children": [
-          {"born": 1980, "firstname": "Tammy Michele"},
+          {"born": 1980, "firstname": "Tammy Michele", "children": [
+              {"born": 2015, "children": "Brady"}
+          ]},
           {"born": 1982, "firstname": "Thomas Michael"}
       ]},
       {"born": 1928, "firstname": "Edward Michael", "children": [
-          {"born": 1951, "firstname": "Nancy Lynn"},
-          {"born": 1952, "firstname": "Edward Michael, Jr."},
-          {"born": 1962, "firstname": "Mark Thomas"}
+          {"born": 1951, "firstname": "Nancy Lynn", "children": [
+              {"born": 1979, "firstname": "Michael", "children": [
+                  {"born": 2012, "firstname": "Avery"},
+                  {"born": 2015, "firstname": "Wyatt"}
+              ]}
+          ]},
+          {"born": 1952, "firstname": "Edward Michael, Jr.", "children": [
+              {"born": 1981, "firstname": "Erin"},
+              {"born": 1986, "firstname": "Edward"}
+          ]},
+          {"born": 1962, "firstname": "Mark Thomas", "children": [
+              {"born": 1990, "firstname": "Matthew"},
+              {"born": 1994, "firstname": "Lauren"}
+          ]}
       ]},
-      {"born": 1932, "firstname": "Diana", "children": []},
-      {"born": 1937, "firstname": "Barbara Ann", "children": []}
+      {"born": 1932, "firstname": "Diana"},
+      {"born": 1937, "firstname": "Barbara Ann", "children": [
+          {"born": 1961, "firstname": "Harry", "children": [
+              {"born": 1990, "firstname": "Harry"},
+              {"born": 1992, "firstname": "Callahan"},
+              {"born": 1996, "firstname": "Tenley"},
+              {"born": 1998, "firstname": "Granite"}
+          ]},
+          {"born": 1963, "firstname": "Dale", "children": [
+              {"born": 2006, "firstname": "Luke"},
+              {"born": 2007, "firstname": "Tyce"}
+          ]},
+          {"born": 1965, "firstname": "Randall", "children": [
+              {"born": 2001, "firstname": "Townsend"},
+              {"born": 2004, "firstname": "Ella"}
+          ]}
+      ]}
   ]},
   {"born": 1905, "firstname": "Haifa"},
   {"born": 1908, "firstname": "Minnie", "children": [
