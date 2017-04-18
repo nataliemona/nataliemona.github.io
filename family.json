@@ -6,7 +6,11 @@
     {"born": 1927, "firstname": "Elaine Helen", "children":[]},
     {"born": 1929, "firstname": "Mona Mary", "children":[]}
   ]},
-  {"born": 1902, "firstname": "Michael John", "children": []},
+  {"born": 1902, "firstname": "Michael John", "children": [
+    {"born": 1932, "firstname":"Phyllis Helen", "children":[]},
+    {"born": 1933, "firstname":"John Michael", "children":[]},
+    {"born": 1935, "firstname":"Roger Elias", "children":[]}
+  ]},
   {"born": 1904, "firstname": "Lenda", "children": []},
   {"born": 1905, "firstname": "Haifa", "children": []},
   {"born": 1908, "firstname": "Minnie", "children": []},
