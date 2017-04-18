@@ -17,9 +17,26 @@
     {"born": 1932, "firstname": "Diana", "children": []},
     {"born": 1937, "firstname": "Barbara Ann", "children": []}
   ]},
-  {"born": 1905, "firstname": "Haifa", "children": []},
-  {"born": 1908, "firstname": "Minnie", "children": []},
-  {"born": 1909, "firstname": "Carmer", "children": []},
-  {"born": 1913, "firstname": "Alice", "children": []},
-  {"born": 1914, "firstname": "Florence", "children": []}
+  {"born": 1905, "firstname": "Haifa"},
+  {"born": 1908, "firstname": "Minnie", "children": [
+    {"born": 1933, "firstname": "June Mary", "children": []},
+    {"born": 1934, "firstname": "Lila Sarah", "children": []},
+    {"born": 1936, "firstname": "Norma Mary", "children": []},
+    {"born": 1938, "firstname": "Robert Abraham", "children": []}
+  ]},
+  {"born": 1909, "firstname": "Carmer", "children": [
+    {"born": 1934, "firstname": "Michael Eissy Jr", "children": []},
+    {"born": 1938, "firstname": "Philip John", "children": []},
+    {"born": 1945, "firstname": "Paul B", "children": []}
+  ]},
+  {"born": 1913, "firstname": "Alice", "children": [
+    {"born": 1937, "firstname": "Myrna Alice", "children": []},
+    {"born": 1940, "firstname": "Michel", "children": []},
+    {"born": 1943, "firstname": "Judith Marie", "children": []}
+  ]},
+  {"born": 1914, "firstname": "Florence", "children": [
+    {"born": 1940, "firstname": "John George", "children": []},
+    {"born": 1942, "firstname": "Leon", "children": []},
+    {"born": 1945, "firstname": "Carol Sarah", "children": []}
+  ]}
 ]}
