@@ -15,7 +15,7 @@
     {"born": 1927, "firstname": "Thomas Michael", "children": []},
     {"born": 1928, "firstname": "Edward Michael", "children": []},
     {"born": 1932, "firstname": "Diana", "children": []},
-    {"born": 1937, "firstname": "Barbara Ann", "children": []},
+    {"born": 1937, "firstname": "Barbara Ann", "children": []}
   ]},
   {"born": 1905, "firstname": "Haifa", "children": []},
   {"born": 1908, "firstname": "Minnie", "children": []},
