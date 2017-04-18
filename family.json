@@ -4,7 +4,7 @@
     {"born": 1919, "firstname": "Salwa Noor", "children":[]},
     {"born": 1920, "firstname": "Theodore Shafick", "children":[]},
     {"born": 1927, "firstname": "Elaine Helen", "children":[]},
-    {"born": 1929, "firstname": "Mona Mary", "children":[]},
+    {"born": 1929, "firstname": "Mona Mary", "children":[]}
   ]},
   {"born": 1902, "firstname": "Michael John", "children": []},
   {"born": 1904, "firstname": "Lenda", "children": []},
