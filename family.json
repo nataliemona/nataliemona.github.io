@@ -18,7 +18,7 @@
     {"born": 1929, "firstname": "Mona Mary", "children":[
       {"born": 1953, "firstname": "Jeanne Marie", "children": []},
       {"born": 1955, "firstname": "William Eugene", "children": []},
-      {"born": 1956, "firstname": "Heidi Ann", "children": []},
+      {"born": 1956, "firstname": "Heidi Ann", "children": []}
     ]}
   ]},
   {"born": 1902, "firstname": "Michael John", "children": [
