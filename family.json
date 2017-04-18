@@ -7,22 +7,45 @@
                 {"born": 1973, "firstname": "Christine"},
                 {"born": 1977, "firstname": "Laura"}
             ]},
-            {"born": 1947, "firstname":"Paula Mary", "children":[]},
-            {"born": 1951, "firstname":"Marilyn Ann", "children":[]}
+            {"born": 1947, "firstname": "Paula Mary", "children":[
+                {"born": 1995, "firstname": "William Emilio"},
+                {"born": 1999, "firstname": "Josue"}
+            ]},
+            {"born": 1951, "firstname":"Marilyn Ann", "children":[
+                {"born": 1982, "firstname": "Emily"},
+                {"born": 1990, "firstname": "Marianna"}
+            ]}
         ]},
         {"born": 1920, "firstname": "Theodore Shafick", "children":[
           {"born": 1946, "firstname": "Karen Jeanne"},
           {"born": 1949, "firstname": "Janet Elaine"}
         ]},
         {"born": 1927, "firstname": "Elaine Helen", "children":[
-          {"born": 1952, "firstname": "William Serafim, Jr.", "children": []},
-          {"born": 1955, "firstname": "Theodore John", "children": []},
-          {"born": 1957, "firstname": "Christopher James", "children": []}
+          {"born": 1952, "firstname": "William Serafim, Jr.", "children": [
+              {"born": 1994, "firstname": "Theodore"},
+              {"born": 1999, "firstname": "Lilly"}
+          ]},
+          {"born": 1955, "firstname": "Theodore John", "children": [
+              {"born": 1988, "firstname": "Richard"},
+              {"born": 1991, "firstname": "Stephen"},
+              {"born": 1993, "firstname": "John"}
+          ]},
+          {"born": 1957, "firstname": "Christopher James"}
         ]},
         {"born": 1929, "firstname": "Mona Mary", "children":[
-          {"born": 1953, "firstname": "Jeanne Marie", "children": []},
-          {"born": 1955, "firstname": "William Eugene", "children": []},
-          {"born": 1956, "firstname": "Heidi Ann", "children": []}
+          {"born": 1953, "firstname": "Jeanne Marie", "children": [
+              {"born": 1987, "firstname": "Stephanie"},
+              {"born": 1990, "firstname": "Alexander"}
+          ]},
+          {"born": 1955, "firstname": "William Eugene", "children": [
+              {"born": 1984, "firstname": "Michael"},
+              {"born": 1986, "firstname": "Sarah"},
+              {"born": 1990, "firstname": "Maria"}
+          ]},
+          {"born": 1956, "firstname": "Heidi Ann", "children": [
+              {"born": 1989, "firstname": "Natalie"},
+              {"born": 1994, "firstname": "Austin"}
+          ]}
         ]}
   ]},
   {"born": 1902, "firstname": "Michael John", "children": [
