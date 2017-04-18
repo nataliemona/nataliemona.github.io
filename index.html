@@ -96,9 +96,9 @@ d3.json("family.json", function(error, root) {
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
       .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
       .text(function(d) { return d.firstname; });
+  update(root);
 });
 
-update(treeData[0]);
 d3.select(self.frameElement).style("height", diameter - 150 + "px");
 
 // FROM http://bl.ocks.org/d3noob/8375092
