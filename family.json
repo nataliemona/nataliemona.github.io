@@ -11,7 +11,12 @@
     {"born": 1933, "firstname":"John Michael", "children":[]},
     {"born": 1935, "firstname":"Roger Elias", "children":[]}
   ]},
-  {"born": 1904, "firstname": "Lenda", "children": []},
+  {"born": 1904, "firstname": "Lenda", "children": [
+    {"born": 1927, "firstname": "Thomas Michael", "children": []},
+    {"born": 1928, "firstname": "Edward Michael", "children": []},
+    {"born": 1932, "firstname": "Diana", "children": []},
+    {"born": 1937, "firstname": "Barbara Ann", "children": []},
+  ]},
   {"born": 1905, "firstname": "Haifa", "children": []},
   {"born": 1908, "firstname": "Minnie", "children": []},
   {"born": 1909, "firstname": "Carmer", "children": []},
