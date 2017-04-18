@@ -40,6 +40,7 @@ function getY(d) {
   //return d.y;
   return yearToY(d.born);
 };
+var root;
 var tree = d3.layout.tree()
     .size([360, diameter / 2 - 120])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
@@ -57,9 +58,9 @@ var svg = d3.select("body").append("svg")
     .attr("height", diameter)
   .append("g")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
-d3.json("family.json", function(error, root) {
+d3.json("family.json", function(error, family) {
   if (error) throw error;
-  var root = root;
+  root = family;
   var nodes = tree.nodes(root),
       links = tree.links(nodes);
   var link = svg.selectAll(".link")
