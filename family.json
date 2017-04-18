@@ -47,8 +47,8 @@
           {"born": 1952, "firstname": "Edward Michael, Jr."},
           {"born": 1962, "firstname": "Mark Thomas"}
       ]},
-          {"born": 1932, "firstname": "Diana", "children": []},
-          {"born": 1937, "firstname": "Barbara Ann", "children": []}
+      {"born": 1932, "firstname": "Diana", "children": []},
+      {"born": 1937, "firstname": "Barbara Ann", "children": []}
   ]},
   {"born": 1905, "firstname": "Haifa"},
   {"born": 1908, "firstname": "Minnie", "children": [
