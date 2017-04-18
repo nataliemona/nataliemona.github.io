@@ -87,7 +87,7 @@
           {"born": 1975, "firstname": "Carlton"},
           {"born": 1999, "firstname": "Suzanne"},
           {"born": 1999, "firstname": "Mark"},
-          {"born": 1999, "firstname": "Cameron"},
+          {"born": 1999, "firstname": "Cameron"}
       ]}
   ]},
   {"born": 1913, "firstname": "Alice", "children": [
