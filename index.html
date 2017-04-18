@@ -59,6 +59,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 d3.json("family.json", function(error, root) {
   if (error) throw error;
+  var root = root;
   var nodes = tree.nodes(root),
       links = tree.links(nodes);
   var link = svg.selectAll(".link")
