@@ -74,7 +74,7 @@ d3.json("family.json", function(error, root) {
       .attr("transform", function(d) { return "translate(-10,-"+yearToY(d)+")" })
       .text(function(d) { return d; });
   svg.selectAll(".title")
-    .data([""])
+    .data(["John & Najeeby"])
     .enter().append("text")
       .attr("class", "title")
       .attr("transform", function(d) { return "translate(-50,20)" })
