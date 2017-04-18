@@ -98,7 +98,7 @@ d3.json("family.json", function(error, root) {
       .text(function(d) { return d.firstname; });
 });
 
-update(d);
+update(root);
 d3.select(self.frameElement).style("height", diameter - 150 + "px");
 
 // FROM http://bl.ocks.org/d3noob/8375092
@@ -187,7 +187,6 @@ function update(source) {
 	d.y0 = d.y;
   });
 	
-  update(root);
 }
 
 // Toggle children on click.
@@ -199,6 +198,7 @@ function click(d) {
 	d.children = d._children;
 	d._children = null;
   }
+  update(d);
 }
 </script>
 </body>
