@@ -106,7 +106,7 @@
       {"born": 1940, "firstname": "John George", "children": [
           {"born": 1969, "firstname": "Michael"},
           {"born": 1972, "firstname": "Gina"},
-          {"born": 1976, "firstname": "Stephen"},
+          {"born": 1976, "firstname": "Stephen"}
       ]},
       {"born": 1942, "firstname": "Leon", "children": [
           {"born": 1970, "firstname": "Amy"},
