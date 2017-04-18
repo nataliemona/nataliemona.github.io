@@ -86,7 +86,7 @@
   {"born": 1904, "firstname": "Lenda", "children": [
       {"born": 1927, "firstname": "Thomas Michael", "children": [
           {"born": 1980, "firstname": "Tammy Michele", "children": [
-              {"born": 2015, "children": "Brady"}
+              {"born": 2015, "firstname": "Brady"}
           ]},
           {"born": 1982, "firstname": "Thomas Michael"}
       ]},
