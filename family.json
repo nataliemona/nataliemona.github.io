@@ -3,8 +3,17 @@
     {"born": 1899, "firstname": "Mary", "children": [
         {"born": 1919, "firstname": "Salwa Noor", "children":[
             {"born": 1946, "firstname":"Paul Kalil", "children":[
-                {"born": 1972, "firstname": "Jennifer"},
-                {"born": 1973, "firstname": "Christine"},
+                {"born": 1972, "firstname": "Jennifer", "children": [
+                    {"born": 2003, "firstname": "Abigail"},
+                    {"born": 2006, "firstname": "Olivia"},
+                    {"born": 2011, "firstname": "Julia"}
+                ]},
+                {"born": 1973, "firstname": "Christine", "children": [
+                    {"born": 2009, "firstname": "Chase"},
+                    {"born": 2010, "firstname": "Parker"},
+                    {"born": 2011, "firstname": "Daisy"},
+                    {"born": 2013, "firstname": "Finn"}
+                ]},
                 {"born": 1977, "firstname": "Laura"}
             ]},
             {"born": 1947, "firstname": "Paula Mary", "children":[
@@ -51,13 +60,23 @@
   {"born": 1902, "firstname": "Michael John", "children": [
         {"born": 1932, "firstname":"Phyllis Helen", "children":[
             {"born": 1958, "firstname": "Peter III"},
-            {"born": 1960, "firstname": "Karen Jean"},
-            {"born": 1962, "firstname": "Jeanna"},
+            {"born": 1960, "firstname": "Karen Jean", "children": [
+                {"born": 1990, "firstname": "Michael"},
+                {"born": 1993, "firstname": "Brian"},
+                {"born": 1994, "firstname": "Jennifer"}
+            ]},
+            {"born": 1962, "firstname": "Jeanna", "children": [
+                {"born": 2000, "firstname": "Steven"},
+                {"born": 2004, "firstname": "John"}
+            ]},
             {"born": 1963, "firstname": "Linda Mary"}
         ]},
         {"born": 1933, "firstname":"John Michael", "children":[
             {"born": 1968, "firstname": "Jacquelyn"},
-            {"born": 1970, "firstname": "Michael"}
+            {"born": 1970, "firstname": "Michael", "children": 
+                {"born": 1989, "firstname": "Jordan"},
+                {"born": 1994, "firstname": "Eric"}
+            ]}
         ]},
         {"born": 1935, "firstname":"Roger Elias", "children":[
             {"born": 1961, "firstname": "Phyllis Ann"},
