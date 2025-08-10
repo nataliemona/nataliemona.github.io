@@ -1,87 +1,225 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import familyData from '../family.json';
 import './D3Tree.css';
 
-const D3Tree = () => {
+const D3Tree = ({ action, onActionComplete }) => {
   const ref = useRef();
-  const [data] = useState(familyData);
+  const rootRef = useRef();
 
   useEffect(() => {
-    if (data) {
+    if (!rootRef.current) {
       ref.current.innerHTML = '';
 
       const width = ref.current.clientWidth;
       const height = ref.current.clientHeight;
       const diameter = Math.min(width, height);
 
-      let maxYear = 0;
-      function findMaxYear(node) {
-        if (node.born > maxYear) {
-          maxYear = node.born;
-        }
-        if (node.children) {
-          node.children.forEach(findMaxYear);
-        }
-      }
-      findMaxYear(data);
-
-      const y = d3.scaleLinear().domain([1871, maxYear]).range([0, diameter / 2 - 100]);
-      const yearToY = (year) => y(year);
-
-      const getY = (d) => yearToY(d.data.born);
-
       const tree = d3.tree()
-        .size([360, 100]) // The radius is now controlled by year, so this is just for the angle.
+        .size([360, diameter / 2 - 120])
         .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
 
-      const root = d3.hierarchy(data);
+      const root = d3.hierarchy(familyData);
       tree(root);
+      rootRef.current = root;
+
+      // Collapse all nodes except for the root
+      root.descendants().forEach(d => {
+          d._children = d.children;
+          d.children = null;
+      });
 
       const svg = d3.select(ref.current)
         .append('svg')
         .attr('width', width)
         .attr('height', height)
         .append('g')
-        .attr('transform', `translate(${width / 2}, ${height / 2})`);
+        .attr('transform', `translate(${width / 2},${height / 2})`);
 
-      const linkRadial = d3.linkRadial()
-        .angle(d => d.x / 180 * Math.PI)
-        .radius(d => d.y);
+      root.x0 = height / 2;
+      root.y0 = 0;
+      update(root, svg, root);
 
-      const link = svg.selectAll('.link')
-        .data(root.links())
-        .enter().append('path')
-        .attr('class', 'link')
-        .attr('d', d => {
-            const source = { x: d.source.x, y: getY(d.source) };
-            const target = { x: d.target.x, y: getY(d.target) };
-            if (d.source.data.firstname === "") {
-                source.x = d.target.x;
-            }
-            return linkRadial({source, target});
-        });
+      const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
-      const node = svg.selectAll('.node')
-        .data(root.descendants())
-        .enter().append('g')
-        .attr('class', d => `node ${d.children ? 'node--internal' : 'node--leaf'}`)
-        .attr('transform', d => `rotate(${d.x - 90})translate(${getY(d)})`);
-
-      node.append('circle')
-        .attr('r', 4.5);
-
-      node.append('text')
-        .attr('dy', '.31em')
-        .attr('text-anchor', d => d.depth === 0 ? 'middle' : (d.x < 180 ? 'start' : 'end'))
-        .attr('transform', d => d.depth === 0 ? 'translate(-10, 0) rotate(270)' : (d.x < 180 ? 'translate(8)' : 'rotate(180)translate(-8)'))
-        .text(d => d.data.firstname);
-
+      const tooltip = d3.select('body').append('div')
+        .attr('class', 'tooltip')
+        .style('position', 'absolute')
+        .style('z-index', '10')
+        .style('visibility', 'hidden');
     }
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    if (action && rootRef.current) {
+      if (action === 'expand') {
+        expandAll(rootRef.current);
+      } else if (action === 'collapse') {
+        collapseLevel(rootRef.current);
+      }
+      update(rootRef.current, d3.select(ref.current).select('svg').select('g'), rootRef.current);
+      onActionComplete();
+    }
+  }, [action, onActionComplete]);
+
+  function expandAll(source) {
+    source.descendants().forEach(d => {
+      d.children = d._children;
+    });
+  }
+
+  function collapseAll(source) {
+    let maxDepth = 0;
+    source.each(d => {
+      if (d.depth > maxDepth && d.children) {
+        maxDepth = d.depth;
+      }
+    });
+
+    if (maxDepth === 0) return;
+
+    source.each(d => {
+      if (d.depth === maxDepth) {
+        d.children = null;
+      }
+    });
+  }
+
+  function collapseLevel(source) {
+    let maxDepth = 0;
+    source.each(d => {
+      if (d.depth > maxDepth && d.children) {
+        maxDepth = d.depth;
+      }
+    });
+
+    if (maxDepth === 0) return;
+
+    source.each(d => {
+      if (d.depth === maxDepth - 1) {
+        d._children = d.children;
+        d.children = null;
+      }
+    });
+  }
+
+  function update(source, svg, root) {
+    const duration = 250;
+    const nodes = root.descendants();
+    const links = root.links();
+
+    const tree = d3.tree()
+      .size([360, (root.height + 1) * 120])
+      .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
+
+    tree(root);
+
+    let left = root;
+    let right = root;
+    root.eachBefore(node => {
+      if (node.x < left.x) left = node;
+      if (node.x > right.x) right = node;
+    });
+
+    const height = right.x - left.x + 100;
+    const width = ref.current.clientWidth;
+
+    svg.transition()
+        .duration(duration)
+        .attr("height", height)
+        .attr("viewBox", [-width / 2, left.x - 50, width, height]);
+
+    const node = svg.selectAll('.node')
+      .data(nodes, d => d.id || (d.id = Math.random()));
+
+    const nodeEnter = node.enter().append('g')
+      .attr('class', 'node')
+      .attr('transform', d => `rotate(${source.x0 - 90})translate(${source.y0})`)
+      .on('click', (event, d) => {
+        d.children = d.children ? null : d._children;
+        update(d, svg, root);
+      })
+      .on('mouseover', function(event, d) {
+        d3.select('body').select('.tooltip').style('visibility', 'visible')
+          .html(`<strong>${d.data.firstname}${d.data.lastname ? ' ' + d.data.lastname : ''}</strong><br/>Born: ${d.data.born}`);
+      })
+      .on('mousemove', function(event) {
+        d3.select('body').select('.tooltip').style('top', (event.pageY - 10) + 'px').style('left', (event.pageX + 10) + 'px');
+      })
+      .on('mouseout', function() {
+        d3.select('body').select('.tooltip').style('visibility', 'hidden');
+      });
+
+    nodeEnter.append('circle')
+      .attr('r', 4.5)
+      .attr('fill', d => d._children ? 'lightsteelblue' : '#fff')
+      .attr('stroke', d => d3.scaleOrdinal(d3.schemeCategory10)(d.depth))
+      .attr('stroke-width', 2);
+
+    nodeEnter.append('text')
+      .attr('dy', '.31em')
+      .attr('text-anchor', d => d.x < 180 ? 'start' : 'end')
+            .attr('transform', d => {
+        if (d.depth === 0) return 'translate(8)rotate(0)';
+        return d.x < 180 ? 'translate(8)' : 'rotate(180)translate(-8)';
+      })
+      .text(d => d.data.firstname);
+
+    const nodeUpdate = node.merge(nodeEnter).transition()
+      .duration(duration)
+      .attr('transform', d => `rotate(${d.x - 90})translate(${d.y})`);
+
+    nodeUpdate.select('circle')
+      .attr('r', 4.5)
+      .attr('fill', d => d._children ? 'lightsteelblue' : '#fff');
+
+    const nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr('transform', d => `rotate(${source.x - 90})translate(${source.y})`)
+      .remove();
+
+    nodeExit.select('circle').attr('r', 1e-6);
+    nodeExit.select('text').style('fill-opacity', 1e-6);
+
+    const link = svg.selectAll('.link')
+      .data(links, d => d.target.id);
+
+    const linkEnter = link.enter().insert('path', 'g')
+      .attr('class', 'link')
+      .attr('d', d => {
+        const o = {x: source.x0, y: source.y0};
+        return d3.linkRadial()({source: o, target: o});
+      });
+
+    link.merge(linkEnter).transition()
+      .duration(duration)
+      .attr('d', d => {
+        if (d.source.depth === 0) {
+          const endX = d.target.y * Math.cos((d.target.x - 90) * Math.PI / 180);
+          const endY = d.target.y * Math.sin((d.target.x - 90) * Math.PI / 180);
+          return `M 0 0 L ${endX} ${endY}`;
+        }
+        return d3.linkRadial()
+          .angle(d => d.x / 180 * Math.PI)
+          .radius(d => d.y)(d);
+      });
+
+    link.exit().transition()
+      .duration(duration)
+      .attr('d', d => {
+        const o = {x: source.x, y: source.y};
+        return d3.linkRadial()({source: o, target: o});
+      })
+      .remove();
+
+    root.eachBefore(d => {
+      d.x0 = d.x;
+      d.y0 = d.y;
+    });
+  }
 
   return (
-    <div ref={ref} style={{ width: '100%', height: '800px' }}></div>
+    <div ref={ref} style={{ width: '100%', height: '100vh' }}></div>
   );
 };
 

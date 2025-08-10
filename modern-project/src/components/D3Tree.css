@@ -1,11 +1,8 @@
 .node {
     cursor: pointer;
-    font: 12px sans-serif;
 }
 
 .node circle {
-    fill: #fff;
-    stroke: steelblue;
     stroke-width: 1.5px;
 }
 
@@ -17,4 +14,17 @@
     fill: none;
     stroke: #ccc;
     stroke-width: 1.5px;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 8px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
