@@ -1,11 +1,12 @@
-# nataliemona.github.io
+# React + Vite
 
-This project is a family tree visualization using D3.js.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-### Running the project
+Currently, two official plugins are available:
 
-If you have Python installed, you can use its simple built-in web server.
-1.  Open your terminal or command prompt.
-2.  Navigate to the `nataliemona.github.io` directory inside your project folder.
-3.  Run `python -m http.server`
-4.  Open your web browser and go to `http://localhost:8000/family.html` (or another HTML file).
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
