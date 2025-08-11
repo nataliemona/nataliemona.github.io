@@ -111,17 +111,17 @@ const D3Tree = ({ action, onActionComplete }) => {
   }
 
   function collapseLevel(source) {
-    let maxDepth = 0;
+    let maxDepth = -1;
     source.each(d => {
       if (d.depth > maxDepth && d.children) {
         maxDepth = d.depth;
       }
     });
 
-    if (maxDepth === 0) return;
+    if (maxDepth === -1) return;
 
     source.each(d => {
-      if (d.depth === maxDepth - 1) {
+      if (d.depth === maxDepth) {
         d._children = d.children;
         d.children = null;
       }
