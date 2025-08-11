@@ -5,6 +5,7 @@ import './D3Tree.css';
 
 const FULL_CIRCLE = 360;
 const PADDING = 120;
+const MAX_DEPTH = 6;
 
 const collapseAllNodes = (root) => {
   root.descendants().forEach(d => {
@@ -21,8 +22,10 @@ const createTreeLayout = (diameter) =>
 const D3Tree = ({ action, onActionComplete }) => {
   const ref = useRef();
   const rootRef = useRef();
+  const yearScaleRef = useRef();
 
-  const colorScale = d3.scaleOrdinal(d3.schemeDark2);
+  const colorScale = d3.scaleSequential(d3.interpolateRainbow)
+    .domain([0, MAX_DEPTH]);
 
   const applyNodeStyles = (circles) =>
     circles
@@ -43,6 +46,29 @@ const D3Tree = ({ action, onActionComplete }) => {
     const tree = createTreeLayout(diameter);
     const root = d3.hierarchy(familyData);
     tree(root);
+
+    // Find min and max years for the year scale
+    let minYear = Infinity;
+    let maxYear = -Infinity;
+    root.each(d => {
+      if (d.data.born) {
+        if (d.data.born < minYear) minYear = d.data.born;
+        if (d.data.born > maxYear) maxYear = d.data.born;
+      }
+    });
+
+    // Create and store the year scale
+    const yearScale = d3.scaleLinear()
+      .domain([minYear, maxYear])
+      .range([0, diameter / 2 - PADDING]);
+    yearScaleRef.current = yearScale;
+
+    // Override the y coordinate with the year scale
+    root.each(d => {
+      if (d.data.born) {
+        d.y = yearScale(d.data.born);
+      }
+    });
 
     // Store root and collapse nodes
     rootRef.current = root;
@@ -107,11 +133,17 @@ const D3Tree = ({ action, onActionComplete }) => {
     const nodes = root.descendants();
     const links = root.links();
 
-    const tree = d3.tree()
-      .size([360, (root.height + 1) * 120])
-      .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
-
+    const tree = createTreeLayout(ref.current.clientWidth);
     tree(root);
+
+    const yearScale = yearScaleRef.current;
+    if (yearScale) {
+      root.each(d => {
+        if (d.data.born) {
+          d.y = yearScale(d.data.born);
+        }
+      });
+    }
 
     let left = root;
     let right = root;
