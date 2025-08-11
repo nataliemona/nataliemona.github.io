@@ -1,53 +1,69 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import familyData from '../family.json';
 import './D3Tree.css';
+
+const FULL_CIRCLE = 360;
+const PADDING = 120;
+
+const collapseAllNodes = (root) => {
+  root.descendants().forEach(d => {
+    d._children = d.children;
+    d.children = null;
+  });
+};
+
+const createTreeLayout = (diameter) =>
+  d3.tree()
+    .size([FULL_CIRCLE, diameter / 2 - PADDING])
+    .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
 
 const D3Tree = ({ action, onActionComplete }) => {
   const ref = useRef();
   const rootRef = useRef();
 
+  const colorScale = d3.scaleOrdinal(d3.schemeDark2);
+
+  const applyNodeStyles = (circles) =>
+    circles
+      .attr('r', 4.5)
+      .attr('fill', d => d._children ? colorScale(d.depth) : '#fff')
+      .attr('stroke', d => colorScale(d.depth))
+      .attr('stroke-width', 2);
+
   useEffect(() => {
-    if (!rootRef.current) {
-      ref.current.innerHTML = '';
+    if (rootRef.current) return; // Early return
 
-      const width = ref.current.clientWidth;
-      const height = ref.current.clientHeight;
-      const diameter = Math.min(width, height);
+    // Clear and get dimensions
+    ref.current.innerHTML = '';
+    const { clientWidth: width, clientHeight: height } = ref.current;
+    const diameter = Math.min(width, height);
 
-      const tree = d3.tree()
-        .size([360, diameter / 2 - 120])
-        .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
+    // Create and apply tree layout
+    const tree = createTreeLayout(diameter);
+    const root = d3.hierarchy(familyData);
+    tree(root);
 
-      const root = d3.hierarchy(familyData);
-      tree(root);
-      rootRef.current = root;
+    // Store root and collapse nodes
+    rootRef.current = root;
+    collapseAllNodes(root);
 
-      // Collapse all nodes except for the root
-      root.descendants().forEach(d => {
-          d._children = d.children;
-          d.children = null;
-      });
+    // Create SVG with centered group
+    const svg = d3.select(ref.current)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', `translate(${width / 2},${height / 2})`);
 
-      const svg = d3.select(ref.current)
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append('g')
-        .attr('transform', `translate(${width / 2},${height / 2})`);
+    update(root, svg, root);
 
-      root.x0 = height / 2;
-      root.y0 = 0;
-      update(root, svg, root);
-
-      const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-
-      const tooltip = d3.select('body').append('div')
-        .attr('class', 'tooltip')
-        .style('position', 'absolute')
-        .style('z-index', '10')
-        .style('visibility', 'hidden');
-    }
+    // Tooltip
+    d3.select('body').append('div')
+      .attr('class', 'tooltip')
+      .style('position', 'absolute')
+      .style('z-index', '10')
+      .style('visibility', 'hidden');
   }, []);
 
   useEffect(() => {
@@ -65,23 +81,6 @@ const D3Tree = ({ action, onActionComplete }) => {
   function expandAll(source) {
     source.descendants().forEach(d => {
       d.children = d._children;
-    });
-  }
-
-  function collapseAll(source) {
-    let maxDepth = 0;
-    source.each(d => {
-      if (d.depth > maxDepth && d.children) {
-        maxDepth = d.depth;
-      }
-    });
-
-    if (maxDepth === 0) return;
-
-    source.each(d => {
-      if (d.depth === maxDepth) {
-        d.children = null;
-      }
     });
   }
 
@@ -150,12 +149,6 @@ const D3Tree = ({ action, onActionComplete }) => {
         d3.select('body').select('.tooltip').style('visibility', 'hidden');
       });
 
-    nodeEnter.append('circle')
-      .attr('r', 4.5)
-      .attr('fill', d => d._children ? 'lightsteelblue' : '#fff')
-      .attr('stroke', d => d3.scaleOrdinal(d3.schemeCategory10)(d.depth))
-      .attr('stroke-width', 2);
-
     nodeEnter.append('text')
       .attr('dy', '.31em')
       .attr('text-anchor', d => d.x < 180 ? 'start' : 'end')
@@ -169,9 +162,8 @@ const D3Tree = ({ action, onActionComplete }) => {
       .duration(duration)
       .attr('transform', d => `rotate(${d.x - 90})translate(${d.y})`);
 
-    nodeUpdate.select('circle')
-      .attr('r', 4.5)
-      .attr('fill', d => d._children ? 'lightsteelblue' : '#fff');
+    applyNodeStyles(nodeEnter.append('circle'));
+    applyNodeStyles(nodeUpdate.select('circle'));
 
     const nodeExit = node.exit().transition()
       .duration(duration)
